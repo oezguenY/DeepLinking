@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class ViewController: UIViewController, UITableViewDataSource {
     
@@ -45,12 +46,45 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         if tag == 1 {
             // word
+            guard let url = URL(string: "twitter://") else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                // deep link
+                UIApplication.shared.open(url,options: [:], completionHandler: nil)
+            } else {
+                // upsell
+                let vc = SKStoreProductViewController()
+                vc.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: NSNumber(value: 333903271)], completionBlock: nil)
+                present(vc, animated: true)
+            }
+           
         }
         else if tag == 2 {
             // excel
+          
+            guard let url = URL(string: "ms-excel://") else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                // deep link
+                UIApplication.shared.open(url,options: [:], completionHandler: nil)
+            } else {
+                // upsell
+            }
         }
         else if tag == 3 {
             // powerpoint
+        
+            guard let url = URL(string: "ms-powerpoint://") else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                // deep link
+                UIApplication.shared.open(url,options: [:], completionHandler: nil)
+            } else {
+                // upsell
+            }
         }
     }
     
